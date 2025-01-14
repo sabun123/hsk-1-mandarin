@@ -225,59 +225,11 @@ class MandarinGame {
         });
     }
 
-    handleReadingSelection(button, reading) {
+    handleEnglishSelection(button, english) {
         if (button.classList.contains('disabled')) return;
 
-        this.playReading(reading);
-
-        const showAnnouncement = (message, isCorrect) => {
-            const announcement = document.createElement('div');
-            announcement.className = `announcement ${isCorrect ? 'correct' : 'incorrect'}`;
-            announcement.setAttribute('role', 'alert');
-            announcement.textContent = message;
-            document.body.appendChild(announcement);
-            
-            // Remove the announcement after animation
-            announcement.addEventListener('animationend', (e) => {
-                if (e.animationName === 'fadeOut') {
-                    announcement.remove();
-                }
-            });
-        };
-
-        if (this.correctReadings.has(reading)) {
-            button.classList.add('correct', 'disabled');
-            button.setAttribute('aria-disabled', 'true');
-            button.setAttribute('aria-pressed', 'true');
-            this.selectedReadings.add(reading);
-            
-            showAnnouncement('Correct reading!', true);
-
-            if (this.selectedReadings.size === this.correctReadings.size) {
-                this.successIndicator.classList.remove('hidden');
-                this.successIndicator.classList.add('visible');
-                this.successIndicator.setAttribute('role', 'alert');
-                this.successIndicator.setAttribute('aria-label', 'Correct! Moving to next kanji');
-                setTimeout(() => {
-                    this.successIndicator.classList.remove('visible');
-                    this.showNextKanji();
-                }, 1000);
-            }
-        } else {
-            button.classList.add('incorrect');
-            button.addEventListener('animationend', () => {
-                button.classList.remove('incorrect');
-            }, { once: true });
-            
-            showAnnouncement('Incorrect reading, try again', false);
-        }
-    }
-
-    handleTranslationSelection(button, translation) {
-        if (button.classList.contains('disabled')) return;
-
-        // Play the Chinese character when showing pronunciations
-        if (translation === this.currentWord.en) {
+        // Play the Chinese character when selecting correct answer
+        if (english === this.currentWord.en) {
             this.playWord();
         }
 
@@ -295,12 +247,12 @@ class MandarinGame {
             });
         };
 
-        if (translation === this.currentWord.en) {
+        if (english === this.currentWord.en) {
             button.classList.add('correct', 'disabled');
             button.setAttribute('aria-disabled', 'true');
             button.setAttribute('aria-pressed', 'true');
             
-            showAnnouncement('Correct translation!', true);
+            showAnnouncement('Correct!', true);
 
             setTimeout(() => {
                 this.successIndicator.classList.remove('hidden');
@@ -318,7 +270,7 @@ class MandarinGame {
                 button.classList.remove('incorrect');
             }, { once: true });
             
-            showAnnouncement('Incorrect translation, try again', false);
+            showAnnouncement('Incorrect, try again', false);
         }
     }
 }
