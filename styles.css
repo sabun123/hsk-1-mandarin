@@ -160,6 +160,7 @@ body.dark-mode #themeToggle {
     align-items: center;
     justify-content: center;
     margin: 0;
+    color: var(--text-color); /* Add this line to explicitly set text color */
 }
 
 .reading-option:hover {
