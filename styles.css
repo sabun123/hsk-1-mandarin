@@ -235,6 +235,7 @@ body.dark-mode .reading-option.incorrect,
     opacity: 0.8;
     box-sizing: border-box;
     margin-top: auto;
+    margin-bottom: 20px;
     text-align: center;
     display: flex;
     flex-direction: column;
